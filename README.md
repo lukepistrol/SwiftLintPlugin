@@ -12,9 +12,11 @@
 
 # SwiftLintPlugin
 
-A SPM Plugin for [SwiftLint](https://github.com/realm/SwiftLint/).
+A Swift Package Plugin for [SwiftLint](https://github.com/realm/SwiftLint/) that will run SwiftLint on build time and show errors & warnings in Xcode.
 
-Implementation discussed [here](https://github.com/realm/SwiftLint/issues/3840#issuecomment-1085699163).
+Once SwiftLint offers their own implementation, this will be obsolete.
+
+> Implementation proposed [here](https://github.com/realm/SwiftLint/issues/3840#issuecomment-1085699163) by [@marcoboerner](https://github.com/marcoboerner).
 
 ## Add to Package
 
