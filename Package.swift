@@ -5,24 +5,28 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftLintPlugin",
+    platforms: [
+        .iOS(.v13),
+        .watchOS(.v6),
+        .macOS(.v10_15),
+        .tvOS(.v13),
+    ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "SwiftLintPlugin",
-            targets: ["SwiftLintPlugin"]),
+        .plugin(
+            name: "SwiftLint",
+            targets: ["SwiftLint"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
-            name: "SwiftLintPlugin",
-            dependencies: []),
-        .testTarget(
-            name: "SwiftLintPluginTests",
-            dependencies: ["SwiftLintPlugin"]),
+        .binaryTarget(
+            name: "SwiftLintBinary",
+            url: "https://github.com/realm/SwiftLint/releases/download/0.47.1/SwiftLintBinary-macos.artifactbundle.zip",
+            checksum: "82ef90b7d76b02e41edd73423687d9cedf0bb9849dcbedad8df3a461e5a7b555"
+        ),
+        .plugin(
+            name: "SwiftLint",
+            capability: .buildTool(),
+            dependencies: ["SwiftLintBinary"]),
     ]
 )
