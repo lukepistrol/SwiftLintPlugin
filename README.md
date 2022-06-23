@@ -1,5 +1,5 @@
 <p>
-  <img src="https://img.shields.io/badge/Swift-5.7-f05318.svg" />
+  <img src="https://img.shields.io/badge/Swift-5.6-f05318.svg" />
   <img src="https://img.shields.io/badge/iOS->= 13.0-blue.svg" />
   <img src="https://img.shields.io/badge/macOS->= 10.15-blue.svg" />
   <img src="https://img.shields.io/badge/watchOS->= 6.0-blue.svg" />
