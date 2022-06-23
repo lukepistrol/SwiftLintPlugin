@@ -4,6 +4,9 @@
 //
 //  Created by Lukas Pistrol on 23.06.22.
 //
+//  Big thanks to @marcoboerner on GitHub
+//  https://github.com/realm/SwiftLint/issues/3840#issuecomment-1085699163
+//
 
 import PackagePlugin
 
