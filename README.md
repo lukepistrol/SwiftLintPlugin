@@ -16,7 +16,7 @@ A SPM Plugin for [SwiftLint](https://github.com/realm/SwiftLint/).
 
 Implementation discussed [here](https://github.com/realm/SwiftLint/issues/3840#issuecomment-1085699163).
 
-> This requires `Swift 5.7` and though might not work in current CI/CD workflows.
+> ⚠️ This requires `Swift 5.7` and though might not work in current CI/CD workflows.
 
 ## Add to Package
 
