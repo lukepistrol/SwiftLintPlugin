@@ -1,3 +1,15 @@
+<p>
+  <img src="https://img.shields.io/badge/Swift-5.7-f05318.svg" />
+  <img src="https://img.shields.io/badge/iOS->= 13.0-blue.svg" />
+  <img src="https://img.shields.io/badge/macOS->= 10.15-blue.svg" />
+  <img src="https://img.shields.io/badge/watchOS->= 6.0-blue.svg" />
+  <img src="https://img.shields.io/badge/tvOS->= 13.0-blue.svg" />
+  <img alt="GitHub" src="https://img.shields.io/github/license/lukepistrol/swiftlintplugin">
+  <a href="https://twitter.com/lukeeep_">
+    <img src="https://img.shields.io/badge/Twitter-@lukeeep_-1e9bf0.svg?style=flat" alt="Twitter: @lukeeep_" />
+  </a>
+</p>
+
 # SwiftLintPlugin
 
 A SPM Plugin for [SwiftLint](https://github.com/realm/SwiftLint/).
