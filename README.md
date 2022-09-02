@@ -25,7 +25,7 @@ First add a dependency from this package:
 ```swift
 dependencies: [
     // ...
-    .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", from: "0.0.1"),
+    .package(url: "https://github.com/lukepistrol/SwiftLintPlugin", from: "0.0.4"),
 ]
 ```
 
