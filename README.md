@@ -43,6 +43,14 @@ targets: [
 ]
 ```
 
+## Add to Project
+
+Starting with Xcode 14, plugins can also work on Xcode Project's targets. To do so, simply add this package to your SPM dependencies in Xcode. After that open your `target's settings > Build Phases` and add `SwiftLint` to `Run Build Tool Plug-ins` like shown below:
+
+<img width="285" alt="Screen Shot 2022-09-02 at 09 33 23" src="https://user-images.githubusercontent.com/9460130/188084164-49903dc4-39a4-42fc-aa6f-6c6a813a7239.png">
+
+> You may need to enable & trust the plugin before you can actually run it during builds.
+
 -----
 
 <a href="https://www.buymeacoffee.com/lukeeep" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
