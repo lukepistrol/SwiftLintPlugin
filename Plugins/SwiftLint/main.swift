@@ -19,13 +19,11 @@ struct SwiftLintPlugin: BuildToolPlugin {
                 executable: try context.tool(named: "swiftlint").path,
                 arguments: [
                     "lint",
-                    "--in-process-sourcekit",
-                    "--path",
-                    target.directory.string,
                     "--config",
                     "\(context.package.directory.string)/.swiftlint.yml",
                     "--cache-path",
-                    "\(context.pluginWorkDirectory.string)/cache"
+                    "\(context.pluginWorkDirectory.string)/cache",
+                    target.directory.string
                 ],
                 environment: [:]
             )
@@ -44,13 +42,11 @@ extension SwiftLintPlugin: XcodeBuildToolPlugin {
                 executable: try context.tool(named: "swiftlint").path,
                 arguments: [
                     "lint",
-                    "--in-process-sourcekit",
-                    "--path",
-                    context.xcodeProject.directory.string,
                     "--config",
                     "\(context.xcodeProject.directory.string)/.swiftlint.yml",
                     "--cache-path",
-                    "\(context.pluginWorkDirectory.string)/cache"
+                    "\(context.pluginWorkDirectory.string)/cache",
+                    context.xcodeProject.directory.string
                 ],
                 environment: [:]
             )
