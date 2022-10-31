@@ -51,6 +51,17 @@ Starting with Xcode 14, plugins can also work on Xcode Project's targets. To do 
 
 > You may need to enable & trust the plugin before you can actually run it during builds.
 
+## Fix Warnings
+
+As of version `0.1.0` this package also includes a command plugin which can be called on any target.
+
+1. Select a project or package in the project navigator.
+2. Richt-click and select `SwiftLintFix`.
+   - alternatively you can select `File > Packages > SwiftLintFix`.
+3. Choose the target(s) to run the `swiftlint --fix` command on.
+
+<img width="224" alt="Screenshot 2022-10-31 at 12 59 53" src="https://user-images.githubusercontent.com/9460130/199005629-b214758f-e184-4b3b-8031-e6364c6549c7.png">
+
 -----
 
 <a href="https://www.buymeacoffee.com/lukeeep" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
