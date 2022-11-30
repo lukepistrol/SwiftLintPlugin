@@ -11,6 +11,7 @@
 import PackagePlugin
 import Foundation
 
+@available(macOS 12.0, *)
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
@@ -48,6 +49,7 @@ struct SwiftLintPlugin: BuildToolPlugin {
 #if canImport(XcodeProjectPlugin)
 import XcodeProjectPlugin
 
+@available(macOS 12.0, *)
 extension SwiftLintPlugin: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
         return [
