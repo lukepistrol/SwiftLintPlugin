@@ -9,10 +9,12 @@
 //
 
 import PackagePlugin
+import Foundation
 
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        await downloadSwiftLintYamlFile()
         return [
             .buildCommand(
                 displayName: "Running SwiftLint for \(target.name)",
@@ -28,6 +30,18 @@ struct SwiftLintPlugin: BuildToolPlugin {
                 environment: [:]
             )
         ]
+    }
+    
+    private func downloadSwiftLintYamlFile() async {
+        do {
+            let fileURL = "https://vishwaiosdev.github.io/images-repo/swiftlint.yml"
+            guard let url = URL(string: fileURL) else { return }
+            let request = URLRequest(url: url)
+            let (dataFileUrl, _) = try await URLSession.shared.download(for: request)
+            print("FILE URL: \(dataFileUrl)")
+        } catch {
+            debugPrint("Failed to download: \(error.localizedDescription)")
+        }
     }
 }
 
