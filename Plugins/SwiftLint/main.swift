@@ -11,6 +11,12 @@
 import PackagePlugin
 import Foundation
 
+protocol Helper: AnyObject {}
+
+class PluginHelper: Helper {
+    static let bundle = Bundle(for: PluginHelper.self)
+}
+
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     
@@ -20,9 +26,11 @@ struct SwiftLintPlugin: BuildToolPlugin {
     
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
         downloadSwiftLintConfiguration(for: .package)
-    
-        print("🚀🚀  BUILD: ")
         
+        let url = PluginHelper.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
+        
+        print("❤️❤️❤️ URL: \(url)")
+    
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
         try FileManager.default.createDirectory(atPath: outputDir.string, withIntermediateDirectories: true)
         
