@@ -14,7 +14,13 @@ import Foundation
 @available(macOS 12.0, *)
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
+    
+    enum Xcode {
+        case package, project
+    }
+    
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        downloadSwiftLintConfiguration(for: .package)
         return [
             .buildCommand(
                 displayName: "Running SwiftLint for \(target.name)",
@@ -31,6 +37,33 @@ struct SwiftLintPlugin: BuildToolPlugin {
             )
         ]
     }
+    
+    fileprivate func downloadSwiftLintConfiguration(for xcodeConfig: Xcode) {
+        switch xcodeConfig {
+        case .package:
+            search(for: "swiftlint_package.yml")
+        case .project:
+            search(for: "swiftlint_package.yml")
+        }
+    }
+    
+    private func search(for filename: String) {
+        let currentDirectoryPath = FileManager.default.currentDirectoryPath
+        let fileURL = URL(fileURLWithPath: "\(currentDirectoryPath)/Plugins/Resources/\(filename)")
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: fileURL.path) {
+            do {
+                let fileContents = try String(contentsOf: fileURL)
+                try fileContents.write(toFile: ".swiftlint.yml", atomically: true, encoding: .utf8)
+                let destinationURL = URL(fileURLWithPath: "\(currentDirectoryPath)/")
+                try fileContents.write(to: destinationURL, atomically: true, encoding: .utf8)
+            } catch {
+                print("Error reading or writing file: \(error)")
+            }
+        } else {
+            print("File does not exist at specified URL")
+        }
+    }
 }
 
 #if canImport(XcodeProjectPlugin)
@@ -39,6 +72,7 @@ import XcodeProjectPlugin
 @available(macOS 12.0, *)
 extension SwiftLintPlugin: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
+        downloadSwiftLintConfiguration(for: .project)
         return [
             .buildCommand(
                 displayName: "Running SwiftLint for \(target.displayName)",

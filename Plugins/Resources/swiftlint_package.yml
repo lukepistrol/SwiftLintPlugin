@@ -1,0 +1,190 @@
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+opt_in_rules: 
+  - control_statement
+  - empty_count 
+  - empty_string
+  - trailing_newline
+  - colon
+  - comma
+  - unused_closure_parameter
+  - unused_control_flow_label
+  - no_space_in_method_call
+  - void_return  
+  - syntactic_sugar
+  - discarded_notification_center_observer
+  - class_delegate_protocol
+  - closing_brace
+  - closure_parameter_position
+  - closure_spacing
+  - discouraged_direct_init
+  - empty_enum_arguments
+  - empty_parameters
+  - empty_parentheses_with_trailing_closure
+  - explicit_init
+  - for_where
+  - implicit_getter
+  - is_disjoint
+  - leading_whitespace
+  - trailing_semicolon
+  - legacy_cggeometry_functions
+  - legacy_constant
+  - legacy_constructor
+  - legacy_nsgeometry_functions
+  - mark
+  - multiple_closures_with_trailing_closure
+  - notification_center_detachment
+  - overridden_super_call  
+  - private_over_fileprivate
+  - private_unit_test
+  - prohibited_super_call
+  - protocol_property_accessors_order
+  - redundant_discardable_let
+  - redundant_optional_initialization  
+  - redundant_string_enum_value 
+  - redundant_void_return
+  - redundant_nil_coalescing
+  - return_arrow_whitespace
+  - statement_position
+  - superfluous_disable_command
+  - unneeded_break_in_switch
+  - unused_enumerated
+  - unused_optional_binding
+  - valid_ibinspectable
+  - vertical_whitespace
+  - weak_delegate
+  - shorthand_operator 
+  - nimble_operator
+  - operator_usage_whitespace  
+  - vertical_parameter_alignment  
+  - comment_spacing
+  
+disabled_rules:
+  - force_cast 
+  - force_try 
+  - fallthrough 
+  - nesting     
+  - cyclomatic_complexity
+  - legacy_constructor    
+  - function_body_length
+  - type_body_length 
+  - type_name
+  - private_outlet 
+ 
+  - conditional_returns_on_newline
+  - function_parameter_count
+  - inclusive_language  
+  - sorted_imports
+  - trailing_whitespace
+
+  - identifier_name 
+  - switch_case_alignment
+  - vertical_parameter_alignment
+
+included: 
+  - Sources
+
+# Custom Rules
+force_cast: warning # implicitly. Give warning only for force casting 
+
+file_length:
+  warning: 2000
+  error: 2500
+
+line_length:
+  warning: 140
+  error: 200
+  ignores_comments: true
+  ignores_interpolated_strings: true
+
+switch_case_alignment:
+  indented_cases: true
+
+return_arrow_whitespace: error
+opening_brace: error
+legacy_constructor: error
+legacy_constant: error
+leading_whitespace: error
+empty_count: warning
+shorthand_operator: warning
+reporter: "xcode"
+custom_rules:
+    disable_print:
+      included: ".*\\.swift"
+      name: "Print Usage"
+      regex: "((\\bprint)|(Swift\\.print))\\s*\\("
+      message: "Don't use print. Use LoggerKit instead"
+      match_kinds:
+        - comment
+        - identifier
+      severity: error
+    disable_debug_print:
+      included: ".*\\.swift"
+      name: "Debug Print Usage"
+      regex: "((\\bdebugPrint)|(Swift\\.debugPrint))\\s*\\("
+      message: "Don't use debugPrint. Use LoggerKit instead"
+      match_kinds:
+        - comment
+        - identifier
+      severity: error
+    multiple_empty_lines:
+        name: "Multiple Empty Lines"
+        regex: '((?:\s*\n){3,})'
+        message: "There are too many line breaks"
+        severity: error        
+    protocol_conformance:
+        name: "Protocol Conformance"
+        message: "Protocol conformance should be declared in separate extensions"
+        regex: "(class|struct|extension)[[:space:]]+(?i:(?![^d]*delegate:))[^'\"()<>{},!?:]+:([^'\"<>(){},!?:]+,)+[^'\"<>(){},!?:]*\\{"
+        match_kinds:
+          - keyword
+        severity: warning
+    computed_property:
+        name: "Computed Properties"
+        message: "The get clause should be omitted if the computed property is read only"
+        regex: "var[[:space:]]+[^:]+:[^{]*\\{[[:space:]]*get[[:space:]]*\\{[^}]+\\}(?![[:space:]]*set)"
+        match_kinds:
+          - keyword
+        severity: warning
+    opening_brace:
+        name: "Opening brace"
+        message: "Opening braces should be preceded by a single space and on the same line as the declaration, or optionally on a new line if the statement is multiline."
+        regex: "(?<=\\s)(?<!#)(?:(?:(?#Edge case keywords)let|var)[^=]+=(?:|[[:blank:]]{2,}|\\s+\n\\s*)\\{|(?:(?#Keywords that can be followed by a multiline contruct)switch|func|if|guard|while)\\s+(?:(?#Multiline construct)(?:[^\n]*\\}[[:blank:]]*\\)*)(?:[^{\n]+else)?(?=\\s*\\{)[[:blank:]]*+(?:\n\\s*| {2,})\\{|(?#Single construct)(?:.*\\}[[:blank:]]*\\)*)(?:[^{]+else)?(?=\\s*\\{)(?:\n| ){2,}\\{|[^{\n]*(?:[^\n{]+else)?(?=\\s*\\{)(?:\n\\s*| {2,})\\{)|(?:(?#Keywords that should always be strictly single line)deinit|case|do|for|enum|catch|init|subscript|get|set|willSet|didSet|repeat|struct|class|extension|catch|protocol)[^\n{]*(?<![[:blank:]])(?:\n\\s*| {2,})?\\{)"
+        match_kinds:
+          - keyword
+        severity: error
+    nested_self_usage:
+        name: "Nested .self usage"
+        message: ".self shouldn't be used more than once on a given statement"
+        regex: "(?<!\")self\\.(?:\\p{L}+\\.)*self"
+        severity: warning
+    double_space: # from https://github.com/IBM-Swift/Package-Builder
+        include: "*.swift"
+        name: "Double space"
+        regex: '([a-z,A-Z] \s+)'
+        message: "Double space between keywords"
+        match_kinds: keyword
+        severity: warning
+    comments_space: # from https://github.com/brandenr/swiftlintconfig
+        name: "Space After Comment"
+        regex: '(^ *//\w+)'
+        message: "There should be a space after //"
+        severity: warning
+    empty_line_after_guard: # from https://github.com/brandenr/swiftlintconfig
+        name: "Empty Line After Guard"
+        regex: '(^ *guard[ a-zA-Z0-9=?.\(\),><!]*\{[ a-zA-Z0-9=?.\(\),><!]*\}\n *(?!(?:return|guard))\S+)'
+        message: "There should be an empty line after a guard"
+        severity: warning
+    empty_first_line:
+        name: "Empty First Line"
+        regex: '(^[ a-zA-Z ]*(?:protocol|extension|class|struct|func|enum) (?!(?:var|let))[ a-zA-Z:]*\{\n *\S+)'
+        message: "There should be an empty line after a declaration"
+        severity: error
+    vertical_whitespace_closing_braces:
+        included: ".*.swift"
+        regex: '\n[ \t]*\n[ \t]*[)}\]]'
+        name: "Vertical Whitespace before Closing Braces"
+        message: "Don't include vertical whitespace (empty line) before closing braces."
+        severity: error
