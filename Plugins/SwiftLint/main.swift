@@ -38,7 +38,7 @@ struct SwiftLintPlugin: BuildToolPlugin {
         // Get the URL of the plugin's directory
         let pluginURL = fileManager.urls(for: .libraryDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Application Support")
-            .appendingPathComponent("YourPluginName")
+            .appendingPathComponent("Resources")
         
         // Construct the URL of the YAML file
         let ymlURL = pluginURL.appendingPathComponent("swiftlint_package.yml")
