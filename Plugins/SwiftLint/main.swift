@@ -19,23 +19,17 @@ struct SwiftLintPlugin: BuildToolPlugin {
     }
     
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
-//        downloadSwiftLintConfiguration(for: .package)
+        downloadSwiftLintConfiguration(for: .package)
         
         print("🚀🚀  BUILD: ")
         
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
         try FileManager.default.createDirectory(atPath: outputDir.string, withIntermediateDirectories: true)
         
+        print("🚀🚀  OUTPUT: \(outputDir) ")
+
+        
         return [
-            .prebuildCommand(
-                displayName: "GeneratingSwiftLint",
-                executable: try context.tool(named: "gir2swift").path,
-                arguments: [
-                    "-o", outputDir.string,
-                    "--manifest", context.package.directory.appending("gir2swift-manifest.yml"),
-                ],
-                outputFilesDirectory: outputDir
-            ),
             .buildCommand(
                 displayName: "Running SwiftLint for \(target.name)",
                 executable: try context.tool(named: "swiftlint").path,
@@ -50,23 +44,6 @@ struct SwiftLintPlugin: BuildToolPlugin {
                 environment: [:]
             )
         ]
-        
-    
-//        return [
-//            .buildCommand(
-//                displayName: "Running SwiftLint for \(target.name)",
-//                executable: try context.tool(named: "swiftlint").path,
-//                arguments: [
-//                    "lint",
-//                    "--config",
-//                    "\(context.package.directory.string)/.swiftlint.yml",
-//                    "--cache-path",
-//                    "\(context.pluginWorkDirectory.string)/cache",
-//                    target.directory.string
-//                ],
-//                environment: [:]
-//            )
-//        ]
     }
     
     fileprivate func downloadSwiftLintConfiguration(for xcodeConfig: Xcode) {
