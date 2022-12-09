@@ -32,9 +32,19 @@ struct SwiftLintPlugin: BuildToolPlugin {
         
         let url = SwiftLintPlugin.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
         let urlText = SwiftLintPlugin.bundle.url(forResource: "demo", withExtension: "txt")
+        
+        let fileManager = FileManager.default
+        
+        // Get the URL of the plugin's directory
+        let pluginURL = fileManager.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Application Support")
+            .appendingPathComponent("YourPluginName")
+        
+        // Construct the URL of the YAML file
+        let ymlURL = pluginURL.appendingPathComponent("swiftlint_package.yml")
 
         print("❤️❤️❤️ URL: \(url)")
-        print("❤️❤️❤️ URL: \(urlText)")
+        print("❤️❤️❤️ URL: \(ymlURL)")
 
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
         try FileManager.default.createDirectory(atPath: outputDir.string, withIntermediateDirectories: true)
