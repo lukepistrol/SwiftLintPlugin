@@ -28,9 +28,11 @@ struct SwiftLintPlugin: BuildToolPlugin {
         downloadSwiftLintConfiguration(for: .package)
         
         let url = PluginHelper.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
-        
+        let urlText = PluginHelper.bundle.url(forResource: "demo", withExtension: "txt")
+
         print("❤️❤️❤️ URL: \(url)")
-    
+        print("❤️❤️❤️ URL: \(urlText)")
+
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
         try FileManager.default.createDirectory(atPath: outputDir.string, withIntermediateDirectories: true)
         
