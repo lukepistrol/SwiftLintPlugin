@@ -20,6 +20,9 @@ class PluginHelper: Helper {
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     
+    class Plugin {}
+    static var bundle: Bundle { return Bundle(for: SwiftLintPlugin.Plugin.self) }
+    
     enum Xcode {
         case package, project
     }
@@ -27,8 +30,8 @@ struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
         downloadSwiftLintConfiguration(for: .package)
         
-        let url = PluginHelper.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
-        let urlText = PluginHelper.bundle.url(forResource: "demo", withExtension: "txt")
+        let url = SwiftLintPlugin.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
+        let urlText = SwiftLintPlugin.bundle.url(forResource: "demo", withExtension: "txt")
 
         print("❤️❤️❤️ URL: \(url)")
         print("❤️❤️❤️ URL: \(urlText)")
