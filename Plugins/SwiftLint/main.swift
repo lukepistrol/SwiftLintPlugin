@@ -20,14 +20,11 @@ struct SwiftLintPlugin: BuildToolPlugin {
     
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
         downloadSwiftLintConfiguration(for: .package)
-        
+    
         print("🚀🚀  BUILD: ")
         
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
         try FileManager.default.createDirectory(atPath: outputDir.string, withIntermediateDirectories: true)
-        
-        print("🚀🚀  OUTPUT: \(outputDir) ")
-
         
         return [
             .buildCommand(
@@ -65,11 +62,12 @@ struct SwiftLintPlugin: BuildToolPlugin {
                 try fileContents.write(toFile: ".swiftlint.yml", atomically: true, encoding: .utf8)
                 let destinationURL = URL(fileURLWithPath: "\(currentDirectoryPath)/")
                 try fileContents.write(to: destinationURL, atomically: true, encoding: .utf8)
+                print("FILE SAVE: \(destinationURL)")
             } catch {
-                print("Error reading or writing file: \(error)")
+                print("❌❌ Error reading or writing file: \(error)")
             }
         } else {
-            print("File does not exist at specified URL")
+            print("❌❌ File does not exist at specified URL")
         }
     }
 }
