@@ -55,6 +55,7 @@ struct SwiftLintPlugin: BuildToolPlugin {
     private func search(for filename: String) {
         let currentDirectoryPath = FileManager.default.currentDirectoryPath
         let fileURL = URL(fileURLWithPath: "\(currentDirectoryPath)/Plugins/Resources/\(filename)")
+        print("❌❌ FILE URL: \(fileURL)")
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL.path) {
             do {
