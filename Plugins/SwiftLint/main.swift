@@ -31,6 +31,8 @@ struct SwiftLintPlugin: BuildToolPlugin {
         downloadSwiftLintConfiguration(for: .package)
         
         let path = Bundle.main.path(forResource: "swiftlint_package", ofType: "yml")
+        let pathTxt = Bundle.main.path(forResource: "myTextFile", ofType: "txt")
+        
 
         let url = SwiftLintPlugin.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
         
@@ -45,7 +47,7 @@ struct SwiftLintPlugin: BuildToolPlugin {
         let ymlURL = pluginURL.appendingPathComponent("swiftlint_package.yml")
         
         print("❤️❤️❤️ URL: \(path)")
-        print("❤️❤️❤️ URL: \(url)")
+        print("❤️❤️❤️ URL: \(pathTxt)")
         print("❤️❤️❤️ URL: \(ymlURL)")
         
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
