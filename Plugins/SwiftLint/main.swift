@@ -30,8 +30,9 @@ struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
         downloadSwiftLintConfiguration(for: .package)
         
+        let path = Bundle.main.path(forResource: "swiftlint_package", ofType: "yml")
+
         let url = SwiftLintPlugin.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
-        let urlText = SwiftLintPlugin.bundle.url(forResource: "demo", withExtension: "txt")
         
         let fileManager = FileManager.default
         
@@ -42,10 +43,11 @@ struct SwiftLintPlugin: BuildToolPlugin {
         
         // Construct the URL of the YAML file
         let ymlURL = pluginURL.appendingPathComponent("swiftlint_package.yml")
-
+        
+        print("❤️❤️❤️ URL: \(path)")
         print("❤️❤️❤️ URL: \(url)")
         print("❤️❤️❤️ URL: \(ymlURL)")
-
+        
         let outputDir = context.pluginWorkDirectory.appending("Gir2SwiftOutputDir")
         try FileManager.default.createDirectory(atPath: outputDir.string, withIntermediateDirectories: true)
         
