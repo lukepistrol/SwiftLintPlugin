@@ -20,9 +20,6 @@ class PluginHelper: Helper {
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     
-    class Plugin {}
-    static var bundle: Bundle { return Bundle(for: SwiftLintPlugin.Plugin.self) }
-    
     enum Xcode {
         case package, project
     }
@@ -83,6 +80,8 @@ struct SwiftLintPlugin: BuildToolPlugin {
         let currentDirectoryPath = FileManager.default.currentDirectoryPath
         let fileURL = URL(fileURLWithPath: "\(currentDirectoryPath)/Plugins/Resources/\(filename)")
         print("❌❌ FILE URL: \(fileURL)")
+        let ymlFile = PluginHelper.bundle.path(forResource: "swiftlint_package", ofType: "yml")
+        print("❌❌ YML URL: \(ymlFile)")
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL.path) {
             do {
