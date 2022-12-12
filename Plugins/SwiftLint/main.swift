@@ -30,9 +30,6 @@ struct SwiftLintPlugin: BuildToolPlugin {
         let path = Bundle.main.path(forResource: "swiftlint_package", ofType: "yml")
         let pathTxt = Bundle.main.path(forResource: "myTextFile", ofType: "txt")
         
-
-        let url = SwiftLintPlugin.bundle.url(forResource: "swiftlint_package", withExtension: "yml")
-        
         let fileManager = FileManager.default
         
         // Get the URL of the plugin's directory
