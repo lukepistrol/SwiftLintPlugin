@@ -62,7 +62,7 @@ As of version `0.1.0` this package also includes a command plugin which can be c
 
 ## Run on CI
 
-Important to notice is that when building a package/project on any CI provider (e.g. GitHub Actions) it is mandatory to pass the `-skipPackagePluginValidation` flag to the `xcodebuild` command. This will skip the validation prompt which in Xcode lloks like this:
+Important to notice is that when building a package/project on any CI provider (e.g. GitHub Actions) it is mandatory to pass the `-skipPackagePluginValidation` flag to the `xcodebuild` command. This will skip the validation prompt which in Xcode looks like this:
 
 <img width="263" alt="Screenshot 2022-12-13 at 17 48 44" src="https://user-images.githubusercontent.com/9460130/207394170-9490e687-e066-4bfa-862c-a4f816b6b43b.png">
 
