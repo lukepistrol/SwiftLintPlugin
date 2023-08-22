@@ -8,11 +8,15 @@
 //  https://github.com/realm/SwiftLint/issues/3840#issuecomment-1085699163
 //
 
+import Foundation
 import PackagePlugin
 
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        if ProcessInfo().environment["DISABLE_SWIFTLINT"] != nil {
+            return []
+        }
         return [
             .buildCommand(
                 displayName: "Running SwiftLint for \(target.name)",
