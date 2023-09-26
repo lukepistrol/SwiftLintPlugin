@@ -79,9 +79,6 @@ xcodebuild  \
 
 If you need to disable linting (for release/app store builds), you can set`DISABLE_SWIFTLINT` environment variable
 
-> **Note**
-> `DISABLE_SWIFTLINT` is currently only available on the `main` branch. Once SwiftLint releases a new version it will be available on that version tag.
-
 -----
 
 <a href="https://www.buymeacoffee.com/lukeeep" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
