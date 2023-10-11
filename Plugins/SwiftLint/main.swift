@@ -14,7 +14,7 @@ import PackagePlugin
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
-        if ProcessInfo().environment["DISABLE_SWIFTLINT"] != nil {
+        if ProcessInfo.processInfo.environment["DISABLE_SWIFTLINT"] != nil {
             return []
         }
         return [
