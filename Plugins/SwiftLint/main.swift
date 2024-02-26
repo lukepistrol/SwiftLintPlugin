@@ -14,22 +14,47 @@ import PackagePlugin
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        return buildCommands(
+            workingDirectory: context.pluginWorkDirectory,
+            packageDirectory: context.package.directory,
+            targetDirectory: target.directory,
+            tool: try context.tool(named: "swiftlint")
+        )
+    }
+
+    private func buildCommands(
+        workingDirectory: Path,
+        packageDirectory: Path,
+        targetDirectory: Path,
+        tool: PluginContext.Tool
+    ) -> [Command] {
+        // If the DISABLE_SWIFTLINT environment variable is set, don't run SwiftLint.
         if ProcessInfo.processInfo.environment["DISABLE_SWIFTLINT"] != nil {
             return []
         }
+
+        var arguments = [
+            "lint",
+            "--config",
+            "\(packageDirectory.string)/.swiftlint.yml",
+        ]
+
+        // If running in Xcode Cloud, disable caching.
+        if ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] == "TRUE" {
+            arguments.append("--no-cache")
+        } else {
+            arguments.append("--cache-path")
+            arguments.append("\(workingDirectory)")
+        }
+
+        arguments.append(targetDirectory.string)
+
         return [
-            .buildCommand(
-                displayName: "Running SwiftLint for \(target.name)",
-                executable: try context.tool(named: "swiftlint").path,
-                arguments: [
-                    "lint",
-                    "--config",
-                    "\(context.package.directory.string)/.swiftlint.yml",
-                    "--cache-path",
-                    "\(context.pluginWorkDirectory.string)/cache",
-                    target.directory.string
-                ],
-                environment: [:]
+            .prebuildCommand(
+                displayName: "Running SwiftLint for \(targetDirectory.lastComponent)",
+                executable: tool.path,
+                arguments: arguments,
+                outputFilesDirectory: workingDirectory.appending("Output")
             )
         ]
     }
@@ -40,21 +65,12 @@ import XcodeProjectPlugin
 
 extension SwiftLintPlugin: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
-        return [
-            .buildCommand(
-                displayName: "Running SwiftLint for \(target.displayName)",
-                executable: try context.tool(named: "swiftlint").path,
-                arguments: [
-                    "lint",
-                    "--config",
-                    "\(context.xcodeProject.directory.string)/.swiftlint.yml",
-                    "--cache-path",
-                    "\(context.pluginWorkDirectory.string)/cache",
-                    context.xcodeProject.directory.string
-                ],
-                environment: [:]
-            )
-        ]
+        return buildCommands(
+            workingDirectory: context.pluginWorkDirectory,
+            packageDirectory: context.xcodeProject.directory,
+            targetDirectory: context.xcodeProject.directory,
+            tool: try context.tool(named: "swiftlint")
+        )
     }
 }
 #endif

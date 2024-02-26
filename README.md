@@ -16,6 +16,8 @@ A Swift Package Plugin for [SwiftLint](https://github.com/realm/SwiftLint/) that
 
 > **Note** 
 > There now is an official version in the [SwiftLint repo](https://github.com/realm/SwiftLint#plug-in-support)!
+> Though this package will still be maintained and updated since it brings the benefit of being a smaller repository and
+> therefore faster to download as a dependency
 
 ## Add to Package
 
