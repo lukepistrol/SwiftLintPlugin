@@ -1,16 +1,9 @@
-<p>
-  <img src="https://img.shields.io/badge/Swift-5.6-f05318.svg" />
-  <img src="https://img.shields.io/badge/iOS->= 13.0-blue.svg" />
-  <img src="https://img.shields.io/badge/macOS->= 10.15-blue.svg" />
-  <img src="https://img.shields.io/badge/watchOS->= 6.0-blue.svg" />
-  <img src="https://img.shields.io/badge/tvOS->= 13.0-blue.svg" />
-  <img alt="GitHub" src="https://img.shields.io/github/license/lukepistrol/SwiftLintPlugin">
-  <a href="https://twitter.com/lukeeep_">
-    <img src="https://img.shields.io/badge/Twitter-@lukeeep_-1e9bf0.svg?style=flat" alt="Twitter: @lukeeep_" />
-  </a>
-</p>
-
 # SwiftLintPlugin
+
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Flukepistrol%2FSwiftLintPlugin%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/lukepistrol/SwiftLintPlugin)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Flukepistrol%2FSwiftLintPlugin%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/lukepistrol/SwiftLintPlugin)
+[![](https://img.shields.io/github/license/lukepistrol/SwiftLintPlugin)](https://github.com/lukepistrol/SwiftLintPlugin/blob/main/LICENSE)
+[![Twitter: @lukeeep_](https://img.shields.io/badge/Twitter-@lukeeep_-1e9bf0.svg?style=flat)](https://twitter.com/lukeeep_)
 
 A Swift Package Plugin for [SwiftLint](https://github.com/realm/SwiftLint/) that will run SwiftLint on build time and show errors & warnings in Xcode.
 
