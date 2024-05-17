@@ -37,7 +37,20 @@ jobs:
         checksum=${{ steps.fetch_details.outputs.checksum }}
         sed -i 's|url: "https://github.com/realm/SwiftLint/releases/download/.*"|url: "'"${binary_url}"'"|' Package.swift
         sed -i 's|checksum: ".*"|checksum: "'"${checksum}"'"|' Package.swift
-    - name: Commit changes
+
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet; then
+          echo "No changes detected"
+          echo "::set-output name=changes_detected::false"
+        else
+          echo "Changes detected"
+          echo "::set-output name=changes_detected::true"
+        fi
+
+    - name: Commit and push changes
+      if: steps.check_changes.outputs.changes_detected == 'true'
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
