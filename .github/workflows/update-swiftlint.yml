@@ -36,9 +36,8 @@ jobs:
       run: |
         binary_url=${{ steps.fetch_details.outputs.binary_url }}
         checksum=${{ steps.fetch_details.outputs.checksum }}
-        sed -i '' "s|url: \".*\"|url: \"$binary_url\"|" Package.swift
-        sed -i '' "s|checksum: \".*\"|checksum: \"$checksum\"|" Package.swift
-
+        sed -i 's|url: "https://github.com/realm/SwiftLint/releases/download/.*"|url: "'"${binary_url}"'"|' Package.swift
+        sed -i 's|checksum: ".*"|checksum: "'"${checksum}"'"|' Package.swift
     - name: Commit changes
       run: |
         # git config --global user.name 'github-actions[bot]'
