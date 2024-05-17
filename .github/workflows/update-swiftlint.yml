@@ -1,0 +1,49 @@
+name: Update SwiftLint
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Runs every Monday at midnight
+  workflow_dispatch:
+
+jobs:
+  update-swiftlint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Get latest SwiftLint release
+      id: swiftlint_release
+      run: |
+        latest_release=$(curl --silent "https://api.github.com/repos/realm/SwiftLint/releases/latest" | jq -r '.tag_name')
+        echo "Latest release: $latest_release"
+        echo "::set-output name=latest_release::$latest_release"
+
+    - name: Fetch SwiftLint binary URL and checksum
+      id: fetch_details
+      run: |
+        latest_release=${{ steps.swiftlint_release.outputs.latest_release }}
+        binary_url="https://github.com/realm/SwiftLint/releases/download/${latest_release}/SwiftLintBinary-macos.artifactbundle.zip"
+        checksum=$(curl -L $binary_url | shasum -a 256 | awk '{ print $1 }')
+        echo "Binary URL: $binary_url"
+        echo "Checksum: $checksum"
+        echo "::set-output name=binary_url::$binary_url"
+        echo "::set-output name=checksum::$checksum"
+
+    - name: Update Swift Package
+      run: |
+        binary_url=${{ steps.fetch_details.outputs.binary_url }}
+        checksum=${{ steps.fetch_details.outputs.checksum }}
+        sed -i '' "s|url: \".*\"|url: \"$binary_url\"|" Package.swift
+        sed -i '' "s|checksum: \".*\"|checksum: \"$checksum\"|" Package.swift
+
+    - name: Commit changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add Package.swift
+        git commit -m "Update SwiftLint to ${{ steps.swiftlint_release.outputs.latest_release }}"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
