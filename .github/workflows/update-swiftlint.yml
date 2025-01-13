@@ -24,7 +24,7 @@ jobs:
       id: fetch_details
       run: |
         latest_release=${{ steps.swiftlint_release.outputs.latest_release }}
-        binary_url="https://github.com/realm/SwiftLint/releases/download/${latest_release}/SwiftLintBinary-macos.artifactbundle.zip"
+        binary_url="https://github.com/realm/SwiftLint/releases/download/${latest_release}/SwiftLintBinary.artifactbundle.zip"
         checksum=$(curl -L $binary_url | shasum -a 256 | awk '{ print $1 }')
         echo "Binary URL: $binary_url"
         echo "Checksum: $checksum"
